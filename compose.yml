@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   holigo-influencer-service:
-    image: holigo/holigo-influencer-service:1.6.7
+    image: holigo/holigo-influencer-service:1.6.8
     ports:
       - 8131:8131
     labels:
@@ -17,7 +17,7 @@ services:
         'max-size': '10m'
         'max-file': '5'
   holigo-backoffice-service:
-    image: holigo/holigo-backoffice-service:0.0.110
+    image: holigo/holigo-backoffice-service:0.0.111
     ports:
       - "8127:8127"
     environment:

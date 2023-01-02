@@ -1,12 +1,31 @@
 version: '3.3'
 services:
   holigo-influencer-service:
-    image: holigo/holigo-influencer-service:1.2.0
+    image: holigo/holigo-influencer-service:1.6.7
     ports:
       - 8131:8131
     labels:
       collect_logs_with_filebeat: "true"
       decode_log_event_to_json_object: "true"
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          memory: 512M
+    logging:
+      options:
+        'max-size': '10m'
+        'max-file': '5'
+  holigo-backoffice-service:
+    image: holigo/holigo-backoffice-service:0.0.110
+    ports:
+      - 8127:8127
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
+    extra_hosts:
+      - "api.pluslinkcorp.com:183.91.82.158"
+      - "ws.retross.com:183.91.82.158"
     deploy:
       replicas: 1
       resources:

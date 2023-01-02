@@ -19,19 +19,15 @@ services:
   holigo-backoffice-service:
     image: holigo/holigo-backoffice-service:0.0.110
     ports:
-      - 8127:8127
+      - "8127:8127"
+    environment:
+      SPRING_PROFILES_ACTIVE: development
+      SPRING_APPLICATION_JSON: '{"eureka":{"client":{"serviceUrl":{"defaultZone":"http://netflix:eureka@10.1.1.15:8761/eureka/"},"region":"default","register-with-eureka":true},"instance":{"preferIpAddress":true,"hostName":"holigo-backoffice-service","ipAddress":"10.1.1.15"}},"spring":{"cloud":{"config":{"discovery":{"enabled":true,"serviceId":"holigo-config-server"},"failFast":true,"username":"","password":""}}},"application":{"name":"holigo-backoffice-service"}}'
     labels:
       collect_logs_with_filebeat: "true"
       decode_log_event_to_json_object: "true"
-    extra_hosts:
-      - "api.pluslinkcorp.com:183.91.82.158"
-      - "ws.retross.com:183.91.82.158"
     deploy:
       replicas: 1
       resources:
         limits:
           memory: 512M
-    logging:
-      options:
-        'max-size': '10m'
-        'max-file': '5'
